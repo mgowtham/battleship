@@ -1,5 +1,5 @@
 import Component from '@ember/component'
-import { computed, get, set, getProperties } from '@ember/object'
+import { computed, get, set, getProperties, setProperties } from '@ember/object'
 
 let ships = [{ size: 4 }, { size: 3 }, { size: 2 }, { size: 2 }, { size: 3 }, { size: 3 }];
 const HORIZONTAL_COUNT = 3;
@@ -22,11 +22,8 @@ export default Component.extend({
   actions: {
     showCellStatus(cell) {
       if (!get(this, 'viewMode')) {
-        if (get(cell, 'hasShip')) {
-          set(cell, 'showShip', true);
-        } else {
-          set(cell, 'showEmptyCell', true);
-        }
+        let showProperty = get(cell, 'hasShip') ? 'showShip' : 'showEmptyCell';
+        set(cell, showProperty, true);
       }
     },
     shuffleBoard() {
@@ -91,10 +88,10 @@ export default Component.extend({
   markHorizontalRangeOccupied(cells, row, colStart, colEnd) {
     for (let i = colStart; i <= colEnd; i++) {
       cells[row][i].hasShip = true
-      if (row !== 0) {
+      if (cells[row - 1]) {
         cells[row - 1][i].isShipNeighbour = true
       }
-      if (row + 1 !== ROW) {
+      if (cells[row + 1]) {
         cells[row + 1][i].isShipNeighbour = true
       }
     }
@@ -118,10 +115,10 @@ export default Component.extend({
   markVerticalRangeOccupied(cells, col, rowStart, rowEnd) {
     for (let i = rowStart; i <= rowEnd; i++) {
       cells[i][col].hasShip = true
-      if (col !== 0) {
+      if (cells[i][col - 1]) {
         cells[i][col - 1].isShipNeighbour = true
       }
-      if (col + 1 !== COLUMN) {
+      if (cells[i][col + 1]) {
         cells[i][col + 1].isShipNeighbour = true
       }
     }
@@ -153,8 +150,7 @@ export default Component.extend({
       
       if (!isOccupied(cells, fixedPos, variablePos, variablePos + ship.size - 1)) {
         markRange(cells, fixedPos, variablePos, variablePos + ship.size - 1);
-        set(ship, 'fixedPos', fixedPos);
-        set(ship, 'variablePos', variablePos);
+        setProperties(this, {fixedPos, variablePos})
         ++shipsAdded;
       }
     }
