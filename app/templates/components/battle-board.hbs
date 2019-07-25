@@ -1,0 +1,28 @@
+
+<table class="board">
+  <tbody>
+    {{#each cells as |columns|}}
+      <tr class="row">
+      {{#each columns as |cell|}}
+        <td class="cell" onclick={{action 'showCellStatus' cell}}>
+          {{#if (and viewMode cell.hasShip)}}
+            x
+          {{/if}}
+
+          {{#if (not viewMode)}}
+            {{#if cell.showShip}}
+               x
+            {{else if cell.showEmptyCell}}
+               o
+            {{/if}}
+          {{/if}}
+        </td>
+      {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<button class="bb-button" onclick={{action 'shuffleBoard'}} class="shufflerr"> {{if viewMode 'Shuffle' 'Reset and shuffle'}}</button>
+
+<div class="note"> In this game "o" represents empty and "x" represents ship</div>

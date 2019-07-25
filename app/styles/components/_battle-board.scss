@@ -1,0 +1,25 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3%;
+ 
+  .board, .row, .cell {
+    border: 1px solid black;
+  }
+
+  .cell {
+    width: 27px;
+    height: 27px;
+    cursor: pointer;
+  }
+  
+  .board {
+    border-collapse: collapse;
+  }
+  
+  .note {
+    margin-top: 10px
+  }
+}
+
