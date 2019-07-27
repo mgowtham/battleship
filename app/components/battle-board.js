@@ -1,5 +1,6 @@
 import Component from '@ember/component'
 import { computed, get, set, getProperties, setProperties } from '@ember/object'
+import randomNumber from 'battleship/utils/random-number';
 
 let ships = [{ size: 4 }, { size: 3 }, { size: 2 }, { size: 2 }, { size: 3 }, { size: 3 }];
 const HORIZONTAL_COUNT = 3;
@@ -10,7 +11,9 @@ export default Component.extend({
   row: ROW,
   column: COLUMN,
   ships: ships,
+  testMode: computed.not('viewMode'),
   classNames: ['app-container'],
+  classNameBindings: ['testMode:test-mode'],
   horizontalShips: computed.filter('ships', (ship) => get(ship, 'isHorizontal')),
   verticalShips: computed.filter('ships', (ship) => !get(ship, 'isHorizontal')),
 
@@ -44,12 +47,6 @@ export default Component.extend({
     this.set('cells', cells);
   },
 
-  randomNumber(start, end) {
-    let diff = end - start;
-    let decNumber = (Math.random() * diff) + start;
-    return Math.floor(decNumber);
-  },
-
   setShipProperties() {
     let horizontalCount = 0, verticalCount = 0;
     let ships = get(this, 'ships');
@@ -59,7 +56,7 @@ export default Component.extend({
       } else if (verticalCount === VERTICAL_COUNT) {
         set(ship, 'isHorizontal', true);
       } else {
-        let isHorizontal = this.randomNumber(0, 2);
+        let isHorizontal = randomNumber(0, 2);
         isHorizontal ? ++horizontalCount : ++verticalCount;
         set(ship, 'isHorizontal', Boolean(isHorizontal));
       }
@@ -144,9 +141,9 @@ export default Component.extend({
     while (shipsAdded !== shipCount) {
       let ship = ships[shipsAdded];
       let fixedStart = 0, fixedEnd = fixedCapcity;
-      let fixedPos = this.randomNumber(fixedStart, fixedEnd);
+      let fixedPos = randomNumber(fixedStart, fixedEnd);
       let variableStart = 0, variableEnd = variableCapacity - ship.size;
-      let variablePos = this.randomNumber(variableStart, variableEnd);
+      let variablePos = randomNumber(variableStart, variableEnd);
       
       if (!isOccupied(cells, fixedPos, variablePos, variablePos + ship.size - 1)) {
         markRange(cells, fixedPos, variablePos, variablePos + ship.size - 1);

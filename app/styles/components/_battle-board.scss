@@ -11,6 +11,9 @@
   .cell {
     width: 27px;
     height: 27px;
+  }
+
+  &.test-mode .cell {
     cursor: pointer;
   }
   
