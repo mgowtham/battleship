@@ -20,6 +20,7 @@ module('Integration | Component | battle-board', function(hooks) {
       row = this.get('ships.firstObject.variablePos');
     }
     assert.equal(this.$(`.row:nth-child(${row + 2}) .cell:nth-child(${column + 2})`).text().trim(), 'x');
+    assert.equal(this.$(`.row:first-child .cell:nth-child(2)`).text().trim(), 'a');
   });
 
   test('check whether test game works properly', async function(assert) {
