@@ -19,7 +19,7 @@ module('Integration | Component | battle-board', function(hooks) {
       column = this.get('ships.firstObject.fixedPos');
       row = this.get('ships.firstObject.variablePos');
     }
-    assert.equal(this.$(`.row:nth-child(${row + 1}) .cell:nth-child(${column + 1})`).text().trim(), 'x');
+    assert.equal(this.$(`.row:nth-child(${row + 2}) .cell:nth-child(${column + 2})`).text().trim(), 'x');
   });
 
   test('check whether test game works properly', async function(assert) {
@@ -35,8 +35,8 @@ module('Integration | Component | battle-board', function(hooks) {
       column = this.get('ships.firstObject.fixedPos');
       row = this.get('ships.firstObject.variablePos');
     }
-    assert.equal(this.$(`.row:nth-child(${row + 1}) .cell:nth-child(${column + 1})`).text().trim(), '');
-    await click(`.row:nth-child(${row + 1}) .cell:nth-child(${column + 1})`);
-    assert.equal(this.$(`.row:nth-child(${row + 1}) .cell:nth-child(${column + 1})`).text().trim(), 'x');
+    assert.equal(this.$(`.row:nth-child(${row + 2}) .cell:nth-child(${column + 2})`).text().trim(), '');
+    await click(`.row:nth-child(${row + 2}) .cell:nth-child(${column + 2})`);
+    assert.equal(this.$(`.row:nth-child(${row + 2}) .cell:nth-child(${column + 2})`).text().trim(), 'x');
   });  
 });

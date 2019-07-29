@@ -1,23 +1,29 @@
 
-<table class="board {{if viewMode 'view-mode'}}">
+<table class="board">
   <tbody>
-    {{#each cells as |columns|}}
+     <tr class="row">
+      <td class="cell"> </td> 
+      {{#each tableHeader as |header|}}
+        <td class="cell">{{header}}</td>
+      {{/each}} 
+     </tr>
+    
+    {{#each cells as |columns index|}}
       <tr class="row">
-      {{#each columns as |cell|}}
-        <td class="cell" onclick={{action 'showCellStatus' cell}}>
-          {{#if (and viewMode cell.hasShip)}}
-            x
-          {{/if}}
-
-          {{#if (not viewMode)}}
-            {{#if cell.showShip}}
-               x
-            {{else if cell.showEmptyCell}}
-               o
+        <td class="cell">{{index-position index}}</td>
+        {{#each columns as |cell|}}
+          <td class="cell" onclick={{action 'showCellStatus' cell}}>
+            {{#if testMode}}
+              {{#if cell.showShip}}
+                x
+              {{else if cell.showEmptyCell}}
+                o
+              {{/if}}
+            {{else if cell.hasShip}}
+              x
             {{/if}}
-          {{/if}}
-        </td>
-      {{/each}}
+          </td>
+        {{/each}}
       </tr>
     {{/each}}
   </tbody>

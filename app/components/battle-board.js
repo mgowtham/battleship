@@ -14,6 +14,9 @@ export default Component.extend({
   testMode: computed.not('viewMode'),
   classNames: ['app-container'],
   classNameBindings: ['testMode:test-mode'],
+  tableHeader: computed('columns', function() {
+    return [...Array(get(this, 'column')).keys()].map(i => String.fromCharCode(i + 97));
+  }),
   horizontalShips: computed.filter('ships', (ship) => get(ship, 'isHorizontal')),
   verticalShips: computed.filter('ships', (ship) => !get(ship, 'isHorizontal')),
 
@@ -24,7 +27,7 @@ export default Component.extend({
 
   actions: {
     showCellStatus(cell) {
-      if (!get(this, 'viewMode')) {
+      if (get(this, 'testMode')) {
         let showProperty = get(cell, 'hasShip') ? 'showShip' : 'showEmptyCell';
         set(cell, showProperty, true);
       }
@@ -147,7 +150,7 @@ export default Component.extend({
       
       if (!isOccupied(cells, fixedPos, variablePos, variablePos + ship.size - 1)) {
         markRange(cells, fixedPos, variablePos, variablePos + ship.size - 1);
-        setProperties(this, {fixedPos, variablePos})
+        setProperties(ship, {fixedPos, variablePos})
         ++shipsAdded;
       }
     }
