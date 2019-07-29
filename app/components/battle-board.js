@@ -46,7 +46,7 @@ export default Component.extend({
       }
       cells.push(column);
     }
-    this.set('cells', cells);
+    set(this, 'cells', cells);
   },
 
   setShipProperties() {
