@@ -11,7 +11,6 @@ export default Component.extend({
   row: ROW,
   column: COLUMN,
   ships: ships,
-  testMode: computed.not('viewMode'),
   classNames: ['app-container'],
   classNameBindings: ['testMode:test-mode'],
   tableHeader: computed('columns', function() {

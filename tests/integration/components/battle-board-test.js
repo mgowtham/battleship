@@ -7,10 +7,10 @@ module('Integration | Component | battle-board', function(hooks) {
   setupRenderingTest(hooks);
 
   test('check whether placement test works properly', async function(assert) {
-    this.set('viewMode', true);
+    this.set('testMode', false);
     let ships = [{ size: 4 }, { size: 3 }, { size: 2 }, { size: 2 }, { size: 3 }, { size: 3 }];
     this.set('ships', ships);
-    await this.render(hbs`{{battle-board viewMode=viewMode ships=ships}}`);
+    await this.render(hbs`{{battle-board testMode=testMode ships=ships}}`);
     let row, column;
     if (this.get('ships.firstObject.isHorizontal')) {
        row = this.get('ships.firstObject.fixedPos');
@@ -24,10 +24,10 @@ module('Integration | Component | battle-board', function(hooks) {
   });
 
   test('check whether test game works properly', async function(assert) {
-    this.set('viewMode', false);
+    this.set('testMode', true);
     let ships = [{ size: 4 }, { size: 3 }, { size: 2 }, { size: 2 }, { size: 3 }, { size: 3 }];
     this.set('ships', ships);
-    await this.render(hbs`{{battle-board viewMode=viewMode ships=ships}}`);
+    await this.render(hbs`{{battle-board testMode=testMode ships=ships}}`);
     let row, column;
     if (this.get('ships.firstObject.isHorizontal')) {
        row = this.get('ships.firstObject.fixedPos');
