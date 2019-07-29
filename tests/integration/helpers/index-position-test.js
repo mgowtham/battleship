@@ -8,10 +8,10 @@ module('Integration | Helper | index-position', function(hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
-    this.set('inputValue', '1234');
+    this.set('inputValue', 0);
 
     await render(hbs`{{index-position inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.equal(this.element.textContent.trim(), 1);
   });
 });
