@@ -10,7 +10,7 @@ const COLUMN = 10;
 export default Component.extend({
   row: ROW,
   column: COLUMN,
-  ships: ships,
+  ships,
   classNames: ['app-container'],
   classNameBindings: ['testMode:test-mode'],
   tableHeader: computed('columns', function() {
